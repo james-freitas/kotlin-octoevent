@@ -23,13 +23,28 @@ class ApplicationTest {
         }
     }
 
-    @Test  // GET /issues/1000/events
-    fun testGettingEventsByIssueNumber1000() {
+    @Test
+    fun testJsonTestEndpoint() {
         withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Get, "/issues/1000/events").apply {
+            handleRequest(HttpMethod.Get, "/jsontest").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals("{\n" +
+                        "  \"format\" : \"Json\",\n" +
+                        "  \"enabled\" : true\n" +
+                        "}", response.content)
+            }
+        }
+    }
+
+
+    @Test  // GET /issues/1/events
+    fun testGettingEventsByIssueNumber1() {
+        withTestApplication({ module(testing = true) }) {
+            handleRequest(HttpMethod.Get, "/issues/1/events").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
             }
         }
     }
+
 }
