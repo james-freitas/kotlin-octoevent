@@ -11,14 +11,14 @@
 
 Este projeto cria um banco H2 em memória com uma tabela para instâncias de `Event`.
 
-Como o ktor é assíncrono e baseado em corrotinas, o blocking padrão do JDBC pode causar problemas de
+Como o ktor é assíncrono e baseado em corrotinas, o padrão blocking do JDBC pode causar problemas de
 desempenho quando usado diretamente na main thread pool (threads devem ser reutilizados para outras
-solicitações). Portanto, outro pool de threads é criado para todas as consultas do banco de dados,
+solicitações). Dessa forma, outro pool de threads foi criado para todas as consultas do banco de dados,
 juntamente com o pool de conexões do HikariCP.
 
 ### Rotas:
 
-`GET /issues/{issueNumber}/events` --> recupera todos eventos filtrados por número da issue
+ - `GET /issues/{issueNumber}/events` --> recupera todos eventos filtrados por número da issue
 
 
 ### Rodar os testes:
