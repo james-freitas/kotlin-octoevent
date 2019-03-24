@@ -4,5 +4,5 @@ import com.company.dto.EventDto
 
 interface EventService {
 
-    fun getAllEventsByIssueNumber(issueNumber: Int): List<EventDto>
+    suspend fun getAllEventsByIssueNumber(issueNumber: Int): List<EventDto>
 }

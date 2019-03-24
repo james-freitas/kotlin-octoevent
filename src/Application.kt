@@ -1,10 +1,12 @@
 package com.company
 
-import com.company.com.company.di.myModule
-import com.company.model.Event
+import com.company.com.company.di.dependencyInjectionModule
+import com.company.com.company.model.Event
+import com.company.com.company.service.DatabaseFactory
 import com.company.service.EventService
-import com.company.service.EventServiceImpl
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -37,7 +39,13 @@ fun Application.module(testing: Boolean = false) {
 
     install(DefaultHeaders)
     install(CallLogging)
-    installKoin(listOf(myModule))
+    installKoin(listOf(dependencyInjectionModule))
+
+    DatabaseFactory.init()
+
+    val mapper = jacksonObjectMapper().apply {
+        setSerializationInclusion(JsonInclude.Include.NON_NULL)
+    }
 
     val client = HttpClient(Apache) {
     }

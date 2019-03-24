@@ -1,23 +1,31 @@
 package com.company.service
 
+import com.company.com.company.model.Events
+import com.company.com.company.service.DatabaseFactory.dbQuery
 import com.company.dto.EventDto
-import com.company.model.Event
-import java.text.SimpleDateFormat
-import java.util.*
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.select
+import org.joda.time.format.DateTimeFormat
+
 
 class EventServiceImpl: EventService {
 
-    private var eventsDB: List<Event> = listOf(
-        Event("open", Date(), 1),
-        Event("closed", Date(), 1),
-        Event("closed", Date(), 2),
-        Event("closed", Date(), 2)
-    )
+    override suspend fun getAllEventsByIssueNumber(issueNumber: Int): List<EventDto> = dbQuery {
 
-    override fun getAllEventsByIssueNumber(issueNumber: Int): List<EventDto> {
-        val format = SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
-        return eventsDB
-            .filter { e -> e.issueNumber == issueNumber }
-            .map { e -> EventDto(e.action, format.format(e.createdAt), e.issueNumber) }
+        Events.select {
+            (Events.issueNumber eq issueNumber)
+        }.mapNotNull { toEventDto(it) }
+    }
+
+    private fun toEventDto(event: ResultRow): EventDto? {
+
+        val dateTimeFormat = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm:ss")
+
+        return EventDto(
+            id = event[Events.id],
+            action = event[Events.action],
+            createdAt = event[Events.createdAt].toString(dateTimeFormat),
+            issueNumber = event[Events.issueNumber]
+        )
     }
 }
