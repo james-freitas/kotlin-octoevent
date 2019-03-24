@@ -58,12 +58,6 @@ fun Application.module(testing: Boolean = false) {
             call.respondText { "This is root endpoint." }
         }
 
-        get("/jsontest") {
-            data class DataFormat(val format: String, val enabled: Boolean){}
-            val json = DataFormat("Json", true)
-            call.respond(json)
-        }
-
         get("/issues/{issueNumber}/events") {
             val issueAsString = call.parameters["issueNumber"]
 

@@ -17,3 +17,9 @@ data class Event(
     val issueNumber: Int,
     val createdAt: Date
 )
+
+data class NewEvent(
+    val id: Int?,
+    val action: String,
+    val issueNumber: Int
+)
