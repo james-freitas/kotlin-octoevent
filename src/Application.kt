@@ -43,7 +43,7 @@ fun Application.module(testing: Boolean = false) {
 
     DatabaseFactory.init()
 
-    val mapper = jacksonObjectMapper().apply {
+    jacksonObjectMapper().apply {
         setSerializationInclusion(JsonInclude.Include.NON_NULL)
     }
 
