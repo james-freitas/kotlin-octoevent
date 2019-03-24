@@ -55,6 +55,8 @@ dependencies {
     testCompile "org.koin:koin-test:$koin_version"
     compile "org.slf4j:slf4j-api:1.7.25"
 
+    compile 'org.jetbrains.exposed:exposed:0.13.2'
+    compile group: 'com.h2database', name: 'h2', version: '1.0.60'
 
     compile "io.ktor:ktor-jackson:$ktor_version"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version"
