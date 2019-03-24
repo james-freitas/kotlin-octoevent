@@ -31,7 +31,7 @@ juntamente com o pool de conexões do HikariCP.
 
  - Primeiro clone este repositório e vá para a pasta onde o mesmo foi clonado
  - Para rodar a aplicação execute os seguintes comandos na pasta raiz do projeto
- -- `./gradlew clean build`
- -- `./gradlew run`
+   - `./gradlew clean build`
+   - `./gradlew run`
 
  Acesse o endereço http://localhost:8080/issues/1/events para testar no browser
