@@ -15,10 +15,13 @@ import io.ktor.client.engine.apache.Apache
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
+import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 import org.koin.ktor.ext.installKoin
@@ -69,6 +72,11 @@ fun Application.module(testing: Boolean = false) {
                 val result = emptyList<Event>()
                 call.respond(result)
             }
+        }
+
+        post("/payload") {
+            val event = call.receive<Event>()
+            call.respond(HttpStatusCode.Created, eventService.addEvent(event))
         }
     }
 }

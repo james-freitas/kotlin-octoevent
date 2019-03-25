@@ -1,6 +1,6 @@
 package com.company
 
-import com.company.com.company.model.Events
+import com.company.com.company.model.EventDao
 import com.company.com.company.service.DatabaseFactory
 import com.company.dto.EventDto
 import com.google.gson.Gson
@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Before
+import java.util.logging.Logger
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -22,7 +23,7 @@ class ApplicationTest {
     fun setUp() {
         DatabaseFactory.init()
         transaction {
-            Events.deleteAll()
+            EventDao.deleteAll()
         }
     }
 
@@ -37,7 +38,7 @@ class ApplicationTest {
     }
 
     @Test  // GET /issues/1/events
-    fun testGettingEventsByIssueNumber1() {
+    fun testGettingEventsByIssueNumber() {
         withTestApplication({ module(testing = true) }) {
             handleRequest(HttpMethod.Get, "/issues/1/events").apply {
 
@@ -45,6 +46,16 @@ class ApplicationTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
                 assertThat(eventDtoList).hasSize(1)
+            }
+        }
+    }
+
+    @Test
+    fun testPostingEvents() {
+        withTestApplication ({ module(testing = true) }) {
+            handleRequest(HttpMethod.Post, "/payload").apply {
+                Logger.getLogger(Test::class.java.name).info("Posting being called..")
+                assertEquals(HttpStatusCode.Created, response.status())
             }
         }
     }

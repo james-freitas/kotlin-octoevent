@@ -1,6 +1,6 @@
 package com.company.com.company.service
 
-import com.company.com.company.model.Events
+import com.company.com.company.model.EventDao
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
@@ -17,14 +17,14 @@ object DatabaseFactory {
         // Database.connect("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
         Database.connect(hikari())
         transaction {
-            create(Events)
-            Events.insert {
+            create(EventDao)
+            EventDao.insert {
                 it[id] = 1
                 it[action] = "open"
                 it[issueNumber] = 1
                 it[createdAt] = DateTime.now()
             }
-            Events.insert {
+            EventDao.insert {
                 it[id] = 2
                 it[action] = "closed"
                 it[issueNumber] = 2
