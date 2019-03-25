@@ -19,11 +19,13 @@ object DatabaseFactory {
         transaction {
             create(Events)
             Events.insert {
+                it[id] = 1
                 it[action] = "open"
                 it[issueNumber] = 1
                 it[createdAt] = DateTime.now()
             }
             Events.insert {
+                it[id] = 2
                 it[action] = "closed"
                 it[issueNumber] = 2
                 it[createdAt] = DateTime.now().minusDays(1)

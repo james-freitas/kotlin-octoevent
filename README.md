@@ -18,7 +18,7 @@ juntamente com o pool de conexões do HikariCP.
 
 ### Rotas:
 
- - `GET /issues/{issueNumber}/events` --> recupera todos eventos filtrados por número da issue
+ - `GET /issues/{issueNumber}/events`: recupera todos eventos filtrados por número da issue
 
 
 ### Rodar os testes:

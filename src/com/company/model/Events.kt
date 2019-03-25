@@ -5,7 +5,7 @@ import java.util.*
 
 
 object Events : Table() {
-    val id = integer("id").primaryKey().autoIncrement()
+    val id = integer("id").primaryKey()
     val action = varchar("action", 150)
     val issueNumber = integer("issueNumber")
     val createdAt = date("createdAt")
