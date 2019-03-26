@@ -7,5 +7,7 @@ interface EventService {
 
     suspend fun getAllEventsByIssueNumber(issueNumber: Int): List<EventDto>
 
-    fun addEvent(event: Event): EventDto
+    suspend fun addEvent(event: Event): EventDto
+
+    suspend fun getEventById(id: Int): EventDto?
 }

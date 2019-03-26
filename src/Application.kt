@@ -26,6 +26,7 @@ import io.ktor.routing.routing
 import org.koin.ktor.ext.inject
 import org.koin.ktor.ext.installKoin
 import java.lang.Integer.parseInt
+import java.text.DateFormat
 
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -37,6 +38,7 @@ fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation) {
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
+            dateFormat = DateFormat.getDateInstance()
         }
     }
 

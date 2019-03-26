@@ -1,6 +1,6 @@
 package com.company
 
-import com.company.com.company.model.EventDao
+import com.company.com.company.model.Events
 import com.company.com.company.service.DatabaseFactory
 import com.company.dto.EventDto
 import com.google.gson.Gson
@@ -23,7 +23,7 @@ class ApplicationTest {
     fun setUp() {
         DatabaseFactory.init()
         transaction {
-            EventDao.deleteAll()
+            Events.deleteAll()
         }
     }
 
