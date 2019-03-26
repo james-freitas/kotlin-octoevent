@@ -65,7 +65,6 @@ dependencies {
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     compile "org.mockito:mockito-inline:$mockito_version"
 
-    compile 'com.beust:klaxon:5.0.1'
     testCompile "org.assertj:assertj-core:3.11.1"
     compile 'com.google.code.gson:gson:2.8.5'
 }

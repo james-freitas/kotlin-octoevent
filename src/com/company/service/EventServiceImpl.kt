@@ -1,8 +1,5 @@
 package com.company.service
 
-import com.beust.klaxon.Converter
-import com.beust.klaxon.JsonValue
-import com.beust.klaxon.KlaxonException
 import com.company.com.company.model.Event
 import com.company.com.company.model.Events
 import com.company.com.company.service.DatabaseFactory.dbQuery
@@ -16,8 +13,8 @@ import org.joda.time.format.DateTimeFormat
 
 class EventServiceImpl: EventService {
 
-    val dateTimeFormat = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm:ss")
-    val dateTimeFormat2 = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    val dateFormatOut = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm:ss")
+    val dateFormatIn = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
 
     override suspend fun addEvent(event: Event): EventDto {
 
@@ -25,7 +22,7 @@ class EventServiceImpl: EventService {
         dbQuery {
             key = (Events.insert {
                 it[action] = event.action
-                it[createdAt] =  DateTime.parse(event.issue.created_at, dateTimeFormat2)
+                it[createdAt] =  DateTime.parse(event.issue.created_at, dateFormatIn)
                 it[issueNumber] = event.issue.number
             } get Events.id)!!
         }
@@ -51,7 +48,7 @@ class EventServiceImpl: EventService {
         return EventDto(
             id = event[Events.id],
             action = event[Events.action],
-            createdAt = event[Events.createdAt].toString(dateTimeFormat),
+            createdAt = event[Events.createdAt].toString(dateFormatOut),
             issueNumber = event[Events.issueNumber]
         )
     }
