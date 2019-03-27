@@ -52,7 +52,7 @@ juntamente com o pool de conexões do HikariCP.
     {
         id: 1,
         action: "opened",
-        createdAt: "24/03/2019 12:00:00",
+        createdAt: "2019-03-24T21:40:18Z",
         issueNumber: 5
     }
  ]

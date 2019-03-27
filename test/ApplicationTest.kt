@@ -80,6 +80,7 @@ class ApplicationTest {
                 assertNotNull(response.content)
                 assertThat("opened").isEqualTo(eventCreated.action)
                 assertThat(5).isEqualTo(eventCreated.issueNumber)
+                assertThat("2019-03-24T21:40:18Z").isEqualTo(eventCreated.createdAt)
             }
         }
     }
