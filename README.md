@@ -16,9 +16,11 @@ desempenho quando usado diretamente na main thread pool (threads devem ser reuti
 solicitações). Dessa forma, outro pool de threads foi criado para todas as consultas do banco de dados,
 juntamente com o pool de conexões do HikariCP.
 
+
 ### Rotas:
 
  - `GET /issues/{issueNumber}/events`: recupera todos eventos filtrados por número da issue
+ - `POST /payload` : cria um evento
 
 
 ### Rodar os testes:
@@ -34,4 +36,24 @@ juntamente com o pool de conexões do HikariCP.
    - `./gradlew clean build`
    - `./gradlew run`
 
- Acesse o endereço http://localhost:8080/issues/1/events para testar no browser
+### Testando o POST para criar um evento
+
+ - Usando `curl` execute o comando abaixo:
+ `curl -d '{ "action":"opened", "issue":{ "number":5, "created_at":"2019-03-24T21:40:18Z"} }' -H "Content-Type: application/json" -X POST http://localhost:8080/payload`
+
+
+### Testando o get para obter o evento pelo número da issue
+
+ - No browser acesse: http://localhost:8080/issues/5/events
+ - A resposta deve ser algo como o json abaixo:
+
+ `
+ [
+    {
+        id: 1,
+        action: "opened",
+        createdAt: "24/03/2019 12:00:00",
+        issueNumber: 5
+    }
+ ]
+ `

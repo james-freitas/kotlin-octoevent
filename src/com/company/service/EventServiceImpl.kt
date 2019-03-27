@@ -52,6 +52,4 @@ class EventServiceImpl: EventService {
             issueNumber = event[Events.issueNumber]
         )
     }
-
-
 }
